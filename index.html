@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ONE AI — Image & Video Creator</title>
-<meta name="description" content="ONE AI creator studio with free daily image and video credits, paid plans, ads, prompts and storyboard tools.">
+<title>DARK AI — Image & Video Creator</title>
+<meta name="description" content="DARK AI creator studio with free daily image and video credits, paid plans, ads, prompts and storyboard tools.">
 <style>
 :root{--bg:#07080b;--panel:#101218;--panel2:#151821;--line:#292d37;--txt:#f7f7f8;--muted:#979daa;--soft:#cdd1d8;--accent:#fff;--danger:#ff6b6b}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% -10%,#222733 0,#07080b 35%);color:var(--txt);font:14px Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}
@@ -35,12 +35,35 @@ footer{color:#5f6570;font-size:11px;padding:30px 0}.hidden{display:none!importan
 @keyframes shimmer{to{background-position:-220% 0}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .resultActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* DARK AI generation popup */
+.generationModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.generationModal.show{display:flex}
+.generationBox{width:min(430px,92vw);background:rgba(17,20,27,.96);border:1px solid #343945;border-radius:22px;padding:30px;text-align:center;box-shadow:0 30px 100px rgba(0,0,0,.65)}
+.generationOrb{width:72px;height:72px;margin:0 auto 18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 5%,#777 12%,#252a34 42%,#0b0d12 72%);box-shadow:0 0 0 8px rgba(255,255,255,.035),0 0 45px rgba(255,255,255,.12);animation:darkPulse 1.5s ease-in-out infinite}
+.generationSpinner{width:30px;height:30px;margin:-52px auto 24px;border:3px solid #4b515c;border-top-color:#fff;border-right-color:#fff;border-radius:50%;animation:spin .8s linear infinite;position:relative}
+.generationTitle{font-size:18px;font-weight:900;letter-spacing:.3px}
+.generationStatus{margin-top:8px;color:#aab0bb;font-size:12px;min-height:18px}
+.generationBar{height:5px;border-radius:99px;background:#242934;overflow:hidden;margin-top:22px}
+.generationBar i{display:block;width:35%;height:100%;border-radius:99px;background:linear-gradient(90deg,transparent,#fff,transparent);animation:darkBar 1.25s ease-in-out infinite}
+@keyframes darkPulse{50%{transform:scale(1.07);filter:brightness(1.25)}}
+@keyframes darkBar{0%{transform:translateX(-150%)}100%{transform:translateX(430%)}}
 </style>
 </head>
 <body>
+<div id="generationModal" class="generationModal" aria-hidden="true">
+  <div class="generationBox" role="status" aria-live="polite">
+    <div class="generationOrb"></div>
+    <div class="generationSpinner"></div>
+    <div id="generationTitle" class="generationTitle">DARK AI IS CREATING</div>
+    <div id="generationStatus" class="generationStatus">Preparing your generation…</div>
+    <div class="generationBar"><i></i></div>
+  </div>
+</div>
+
 <div class="app">
 <aside class="side">
-<div class="brand">ONE<span>AI</span></div>
+<div class="brand">DARK<span>AI</span></div>
 <nav class="nav">
 <button class="active" data-page="home">✦ Create</button>
 <button data-page="image">◉ Image</button>
@@ -49,14 +72,14 @@ footer{color:#5f6570;font-size:11px;padding:30px 0}.hidden{display:none!importan
 <button data-page="ideas">⚡ Ideas</button>
 <button data-page="plans">◆ Plans</button>
 </nav>
-<div class="sideinfo">ONE AI Creator Platform<br>Free daily credits + paid plans<br><br>AI rendering requires a connected model/backend.</div>
+<div class="sideinfo">DARK AI Creator Platform<br>Free daily credits + paid plans<br><br>AI rendering requires a connected model/backend.</div>
 </aside>
 
 <main class="main">
-<header class="top"><span style="color:#8f95a1;font-size:12px">ONE AI / Creator Platform</span><div class="status"><span class="pill"><i class="dot" style="display:inline-block"></i> SYSTEM READY</span><span class="pill" id="planBadge">FREE</span><button class="btn" id="accountBtn" onclick="openAccount()">Login</button></div></header>
+<header class="top"><span style="color:#8f95a1;font-size:12px">DARK AI / Creator Platform</span><div class="status"><span class="pill"><i class="dot" style="display:inline-block"></i> SYSTEM READY</span><span class="pill" id="planBadge">FREE</span><button class="btn" id="accountBtn" onclick="openAccount()">Login</button></div></header>
 
 <section id="home" class="tabs active page">
-<div class="hero"><h1>Create anything.<br>One place.</h1><p>ONE AI is designed as a Flow-style creator workspace: idea → image → video → dialogue → storyboard → publish. Free users receive daily credits; paid plans can unlock more usage.</p></div>
+<div class="hero"><h1>Create anything.<br>One place.</h1><p>DARK AI is designed as a Flow-style creator workspace: idea → image → video → dialogue → storyboard → publish. Free users receive daily credits; paid plans can unlock more usage.</p></div>
 <div class="stats">
 <div class="stat"><b id="imgStat">2 / 2</b><small>Free images today</small></div>
 <div class="stat"><b id="vidStat">2 / 2</b><small>Free videos today</small></div>
@@ -64,7 +87,7 @@ footer{color:#5f6570;font-size:11px;padding:30px 0}.hidden{display:none!importan
 <div class="stat"><b>∞</b><small>Prompt ideas</small></div>
 </div>
 <div class="grid">
-<div class="card"><h2>Start creating</h2><div class="sub">Tell ONE AI what you want. Choose a mode below.</div>
+<div class="card"><h2>Start creating</h2><div class="sub">Tell DARK AI what you want. Choose a mode below.</div>
 <div class="row">
 <button class="btn primary" onclick="go('image')">◉ Generate Image</button>
 <button class="btn" onclick="go('video')">▶ Generate Video</button>
@@ -145,16 +168,16 @@ footer{color:#5f6570;font-size:11px;padding:30px 0}.hidden{display:none!importan
 <div class="plan"><h3>CREATOR</h3><div class="price">₹499<span style="font-size:12px;color:#888">/month</span></div><ul><li>Large credit allowance</li><li>Longer videos</li><li>Commercial workflow</li><li>Team-ready projects</li><li>Priority queue</li></ul><button class="btn primary" onclick="showPay('CREATOR')">Choose CREATOR</button></div>
 </div>
 <div class="ad" style="margin-top:20px">ADVERTISEMENT — replace with your approved ad-network unit</div>
-<div class="card" style="margin-top:15px"><h2>Account & Admin</h2><div class="sub">Users can create an account before buying a paid plan. You control plans, users and payment records from the separate ONE AI Admin Panel.</div><div class="actions"><button class="btn" onclick="openAccount()">Login / Create account</button><a class="btn" href="/admin.html">Open Admin Panel</a></div></div>
+<div class="card" style="margin-top:15px"><h2>Account & Admin</h2><div class="sub">Users can create an account before buying a paid plan. You control plans, users and payment records from the separate DARK AI Admin Panel.</div><div class="actions"><button class="btn" onclick="openAccount()">Login / Create account</button><a class="btn" href="/admin.html">Open Admin Panel</a></div></div>
 <div class="card" style="margin-top:15px"><h2>Important for launch</h2><div class="sub">Do not put payment secrets or AI API keys inside this HTML. For real users, use a backend to authenticate users, enforce daily credits, call the AI model, store outputs, and verify payments.</div></div>
 </section>
 
-<footer class="page">ONE AI • Creator platform prototype • Free limits are enforced locally in this demo. Production AI generation, payments, accounts and ad serving require backend/provider integration.</footer>
+<footer class="page">DARK AI • Creator platform prototype • Free limits are enforced locally in this demo. Production AI generation, payments, accounts and ad serving require backend/provider integration.</footer>
 </main>
 </div>
 
-<div id="payModal" class="modal"><div class="modalbox"><h2 id="payTitle">Plan</h2><p id="payText" class="sub">Login first. Then ONE AI can create a secure Razorpay order from the server.</p><div class="actions"><button class="btn primary" id="payNowBtn" onclick="startPayment()">Pay securely</button><button class="btn" onclick="closePay()">Close</button></div></div></div>
-<div id="accountModal" class="modal"><div class="modalbox"><h2>ONE AI Account</h2><p class="sub">Create an account to buy paid plans. Your AI/API secrets never go into the browser.</p><input id="authEmail" class="field" type="email" placeholder="Email"><input id="authPassword" class="field" type="password" placeholder="Password (6+ characters)" style="margin-top:9px"><div class="actions"><button class="btn primary" onclick="registerAccount()">Create account</button><button class="btn" onclick="loginAccount()">Login</button><button class="btn" onclick="closeAccount()">Close</button></div><div id="authMsg" class="output" style="margin-top:12px;min-height:60px">Not logged in.</div></div></div>
+<div id="payModal" class="modal"><div class="modalbox"><h2 id="payTitle">Plan</h2><p id="payText" class="sub">Login first. Then DARK AI can create a secure Razorpay order from the server.</p><div class="actions"><button class="btn primary" id="payNowBtn" onclick="startPayment()">Pay securely</button><button class="btn" onclick="closePay()">Close</button></div></div></div>
+<div id="accountModal" class="modal"><div class="modalbox"><h2>DARK AI Account</h2><p class="sub">Create an account to buy paid plans. Your AI/API secrets never go into the browser.</p><input id="authEmail" class="field" type="email" placeholder="Email"><input id="authPassword" class="field" type="password" placeholder="Password (6+ characters)" style="margin-top:9px"><div class="actions"><button class="btn primary" onclick="registerAccount()">Create account</button><button class="btn" onclick="loginAccount()">Login</button><button class="btn" onclick="closeAccount()">Close</button></div><div id="authMsg" class="output" style="margin-top:12px;min-height:60px">Not logged in.</div></div></div>
 <div class="toast" id="toast">Copied</div>
 
 <script>
@@ -201,11 +224,22 @@ document.getElementById('i2vFile')?.addEventListener('change',e=>{
   const u=URL.createObjectURL(f);
   p.innerHTML=`<img src="${u}" style="max-width:100%;max-height:320px;border-radius:12px;display:block;margin:auto">`;
 });
+
+function showGeneration(type='AI',status='Preparing your generation…'){
+  const m=document.getElementById('generationModal');
+  if(!m)return;
+  document.getElementById('generationTitle').textContent=`DARK AI IS CREATING ${String(type).toUpperCase()}`;
+  document.getElementById('generationStatus').textContent=status;
+  m.classList.add('show');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function updateGeneration(status){const e=document.getElementById('generationStatus');if(e)e.textContent=status}
+function hideGeneration(){const m=document.getElementById('generationModal');if(!m)return;m.classList.remove('show');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 async function generateImage(){
 if(state.images<=0){go('plans');return alert('Aaj ke 2 free image credits use ho gaye.');}
 let x=document.getElementById('imgPrompt').value.trim();if(!x)return alert('Image prompt likho.');
 const preview=document.getElementById('imagePreview'); preview.innerHTML='<div class="loadingPanel"><div class="loadingText"><div class="spinner"></div><b>CREATING YOUR IMAGE</b><small style="margin-top:7px;color:#9da3ae">AI is rendering a preview…</small></div></div>'; 
 try{
+ updateGeneration('Generating image with the AI model…');
  const ratio=document.getElementById('imgRatio').value, dims=getRatioDims(ratio);
  const r=await fetch('/api/image',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:x,style:document.getElementById('imgStyle').value,ratio,quality:document.getElementById('imgQuality').value,width:dims.width,height:dims.height})});
  if(!r.ok){let j=await r.json().catch(()=>({})); throw new Error(j.error||'Image generation failed');}
@@ -219,8 +253,10 @@ function videoFrames(duration){return duration==='5 sec'?121:duration==='8 sec'?
 async function generateVideo(){
 if(state.videos<=0){go('plans');return alert('Aaj ke 2 free video credits use ho gaye.');}
 let x=document.getElementById('vidPrompt').value.trim();if(!x)return alert('Story/dialogue likho.');
+showGeneration('VIDEO','Preparing video frames…');
 const out=document.getElementById('vidOut'); out.innerHTML='<div class="loadingPanel videoLoad"><div class="loadingText"><div class="spinner"></div><b>CREATING YOUR VIDEO</b><small style="margin-top:7px;color:#9da3ae">Rendering frames… this can take a little time.</small></div></div>'; 
 try{
+ updateGeneration('Generating video frames… this can take a little time.');
  const r=await fetch('/api/video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:x,duration:document.getElementById('vidDur').value,ratio:document.getElementById('vidRatio').value,camera:document.getElementById('vidCam').value,voice:document.getElementById('vidVoice').value,audio:document.getElementById('vidAudio').value,numFrames:videoFrames(document.getElementById('vidDur').value)})});
  if(!r.ok){let j=await r.json().catch(()=>({})); throw new Error(j.error||'Video generation failed');}
  const blob=await r.blob(); const url=URL.createObjectURL(blob); state.videos--;save();
@@ -232,9 +268,11 @@ async function generateImageVideo(){
 if(state.videos<=0){go('plans');return alert('Aaj ke 2 free video credits use ho gaye.');}
 const file=document.getElementById('i2vFile').files?.[0];
 if(!file)return alert('Pehle source image choose karo.');
+showGeneration('IMAGE → VIDEO','Preparing source image…');
 let prompt=document.getElementById('i2vPrompt').value.trim() || 'Smooth natural cinematic motion, subtle camera movement, realistic facial expression, consistent subject and background.';
 const out=document.getElementById('vidOut'); out.innerHTML='<div class="loadingPanel videoLoad"><div class="loadingText"><div class="spinner"></div><b>ANIMATING YOUR IMAGE</b><small style="margin-top:7px;color:#9da3ae">Creating smooth motion frames…</small></div></div>'; 
 try{
+ updateGeneration('Animating your image with cinematic motion…');
  const dataUrl=await new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.onerror=reject;fr.readAsDataURL(file)});
  const r=await fetch('/api/image-to-video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:dataUrl,prompt,duration:document.getElementById('vidDur').value,ratio:document.getElementById('vidRatio').value,camera:document.getElementById('vidCam').value,numFrames:videoFrames(document.getElementById('vidDur').value)})});
  if(!r.ok){let j=await r.json().catch(()=>({})); throw new Error(j.error||'Image-to-video generation failed');}
@@ -251,7 +289,7 @@ async function registerAccount(){const email=document.getElementById('authEmail'
 async function loginAccount(){const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;try{const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const j=await r.json();if(!r.ok)throw new Error(j.error);authToken=j.token;localStorage.setItem('oneai_token',authToken);document.getElementById('authMsg').innerText='Login successful.';refreshMe()}catch(e){document.getElementById('authMsg').innerText=e.message}}
 function showPay(p){selectedPlan=p;document.getElementById('payTitle').textContent=p+' PLAN';document.getElementById('payText').innerText=authToken?'Ready to create a secure payment order.':'Login/create an account first, then buy this plan.';document.getElementById('payNowBtn').style.display=authToken?'inline-block':'none';document.getElementById('payModal').classList.add('show')}
 function closePay(){document.getElementById('payModal').classList.remove('show')}
-async function startPayment(){if(!authToken){closePay();openAccount();return}try{const r=await fetch('/api/payment/create-order',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+authToken},body:JSON.stringify({plan:selectedPlan})});const j=await r.json();if(!r.ok)throw new Error(j.error);if(!window.Razorpay){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://checkout.razorpay.com/v1/checkout.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}const options={key:j.keyId,amount:j.order.amount,currency:j.order.currency,name:'ONE AI',description:selectedPlan+' Plan',order_id:j.order.id,handler:async function(resp){const vr=await fetch('/api/payment/verify',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+authToken},body:JSON.stringify({...resp,plan:selectedPlan})});const v=await vr.json();if(!vr.ok)throw new Error(v.error);state.plan=v.user.plan;state.paidCredits=v.user.credits;save();refreshMe();closePay();toast('Payment verified — plan activated')} };new window.Razorpay(options).open()}catch(e){document.getElementById('payText').innerText=e.message}}
+async function startPayment(){if(!authToken){closePay();openAccount();return}try{const r=await fetch('/api/payment/create-order',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+authToken},body:JSON.stringify({plan:selectedPlan})});const j=await r.json();if(!r.ok)throw new Error(j.error);if(!window.Razorpay){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://checkout.razorpay.com/v1/checkout.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}const options={key:j.keyId,amount:j.order.amount,currency:j.order.currency,name:'DARK AI',description:selectedPlan+' Plan',order_id:j.order.id,handler:async function(resp){const vr=await fetch('/api/payment/verify',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+authToken},body:JSON.stringify({...resp,plan:selectedPlan})});const v=await vr.json();if(!vr.ok)throw new Error(v.error);state.plan=v.user.plan;state.paidCredits=v.user.credits;save();refreshMe();closePay();toast('Payment verified — plan activated')} };new window.Razorpay(options).open()}catch(e){document.getElementById('payText').innerText=e.message}}
 </script>
 </body>
-</html>
+</html><
