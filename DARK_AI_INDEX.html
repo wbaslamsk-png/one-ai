@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DARK AI — Image & Video Creator</title>
+<meta name="description" content="DARK AI creator studio with free daily image and video credits, paid plans, ads, prompts and storyboard tools.">
+<style>
+:root{--bg:#07080b;--panel:#101218;--panel2:#151821;--line:#292d37;--txt:#f7f7f8;--muted:#979daa;--soft:#cdd1d8;--accent:#fff;--danger:#ff6b6b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% -10%,#222733 0,#07080b 35%);color:var(--txt);font:14px Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:245px 1fr}.side{background:#0a0b0f;border-right:1px solid var(--line);padding:18px;position:sticky;top:0;height:100vh}.brand{font-size:25px;font-weight:950;letter-spacing:-1.5px;padding:8px 8px 25px}.brand span{opacity:.35}
+.nav{display:grid;gap:6px}.nav button{border:1px solid transparent;background:transparent;color:#aeb3bd;text-align:left;padding:12px;border-radius:11px}.nav button:hover,.nav button.active{background:#181b23;color:#fff;border-color:#252934}.sideinfo{position:absolute;bottom:18px;color:#656b76;font-size:11px;line-height:1.6}
+.main{min-width:0}.top{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:#090a0dcc;backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}.status{display:flex;gap:8px;align-items:center}.pill{border:1px solid var(--line);padding:7px 11px;border-radius:99px;font-size:11px;color:#c8cdd6}.dot{width:7px;height:7px;border-radius:50%;background:#72ff9b}
+.page{max-width:1450px;margin:auto;padding:28px}.hero{padding:30px 0}.hero h1{font-size:clamp(35px,5vw,67px);letter-spacing:-3.5px;line-height:1;margin:0 0 15px}.hero p{max-width:760px;color:var(--muted);font-size:16px;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}.stat,.card{background:linear-gradient(145deg,#12141b,#0d0f14);border:1px solid var(--line);border-radius:17px}.stat{padding:16px}.stat b{font-size:22px}.stat small{display:block;color:var(--muted);margin-top:4px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:17px}.card{padding:19px}.card h2{font-size:18px;margin:0 0 6px}.sub{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:15px}
+label{display:block;color:#b8bdc7;font-size:12px;margin:12px 0 7px}.field,textarea,select{width:100%;border:1px solid #292e39;background:#08090d;color:#fff;padding:12px;border-radius:11px;outline:0}.field:focus,textarea:focus,select:focus{border-color:#666}textarea{min-height:135px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.btn{background:#171a22;color:#fff;border:1px solid #2b303b;border-radius:10px;padding:11px 14px}.btn:hover{filter:brightness(1.18)}.btn.primary{background:#fff;color:#050609;border-color:#fff;font-weight:800}.btn.gold{background:#e9e9e9;color:#050505;font-weight:800}
+.output{background:#08090d;border:1px solid #252a34;border-radius:12px;padding:14px;white-space:pre-wrap;line-height:1.6;color:#dfe3e9;min-height:130px;font-size:12px}
+.preview{aspect-ratio:16/10;background:linear-gradient(135deg,#151922,#07080b);border:1px solid #292e39;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#747a86;text-align:center;padding:20px}.preview svg{width:100%;height:100%}.preview video{width:100%;height:100%;object-fit:cover}
+.tabs{display:none}.tabs.active{display:block}.ad{border:1px dashed #353a45;background:#0c0e13;border-radius:12px;min-height:74px;display:flex;align-items:center;justify-content:center;color:#5e6470;font-size:11px;margin:12px 0}.credits{display:flex;gap:8px;flex-wrap:wrap}.credit{background:#171a22;border:1px solid #2b3039;padding:10px 12px;border-radius:10px;font-size:12px}.credit b{color:#fff}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.plan{padding:18px;border:1px solid var(--line);border-radius:15px;background:#0e1015}.plan.featured{border-color:#777}.plan h3{margin:0 0 5px}.price{font-size:28px;font-weight:900;margin:9px 0}.plan ul{padding-left:18px;color:var(--muted);line-height:1.9;font-size:12px}.plan button{width:100%}
+.ideas{display:grid;gap:9px}.idea{padding:12px;border:1px solid var(--line);border-radius:11px;background:#0b0d12}.idea b{font-size:12px}.idea span{display:block;color:#9da3ae;font-size:12px;margin-top:5px}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:50;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modalbox{width:min(650px,100%);background:#11141b;border:1px solid #343945;border-radius:18px;padding:22px}.toast{position:fixed;right:18px;bottom:18px;background:#fff;color:#000;border-radius:10px;padding:11px 14px;font-weight:800;display:none;z-index:100}
+footer{color:#5f6570;font-size:11px;padding:30px 0}.hidden{display:none!important}
+@media(max-width:950px){.app{grid-template-columns:1fr}.side{height:auto;position:static;border-right:0;border-bottom:1px solid var(--line)}.sideinfo{display:none}.nav{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.page{padding:18px}.top{padding:0 15px}.row,.row3,.plans{grid-template-columns:1fr}.hero h1{letter-spacing:-2px}.nav{grid-template-columns:repeat(2,1fr)}}
+
+/* V5 generation loading panels */
+.loadingPanel{width:100%;height:100%;min-height:300px;border-radius:14px;position:relative;overflow:hidden;background:linear-gradient(110deg,#0d0f14 20%,#1d222c 35%,#0d0f14 50%);background-size:220% 100%;animation:shimmer 1.35s linear infinite;filter:blur(.2px)}
+.loadingPanel:before{content:"";position:absolute;inset:12% 12%;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));filter:blur(10px)}
+.loadingPanel .loadingText{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#dce1e9;filter:none;z-index:2;padding:20px}
+.loadingPanel .spinner{width:28px;height:28px;border:3px solid #555b66;border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;margin-bottom:12px}
+.loadingPanel.videoLoad{aspect-ratio:16/9;min-height:260px}
+@keyframes shimmer{to{background-position:-220% 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.resultActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* DARK AI generation popup */
+.generationModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.generationModal.show{display:flex}
+.generationBox{width:min(430px,92vw);background:rgba(17,20,27,.96);border:1px solid #343945;border-radius:22px;padding:30px;text-align:center;box-shadow:0 30px 100px rgba(0,0,0,.65)}
+.generationOrb{width:72px;height:72px;margin:0 auto 18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 5%,#777 12%,#252a34 42%,#0b0d12 72%);box-shadow:0 0 0 8px rgba(255,255,255,.035),0 0 45px rgba(255,255,255,.12);animation:darkPulse 1.5s ease-in-out infinite}
+.generationSpinner{width:30px;height:30px;margin:-52px auto 24px;border:3px solid #4b515c;border-top-color:#fff;border-right-color:#fff;border-radius:50%;animation:spin .8s linear infinite;position:relative}
+.generationTitle{font-size:18px;font-weight:900;letter-spacing:.3px}
+.generationStatus{margin-top:8px;color:#aab0bb;font-size:12px;min-height:18px}
+.generationBar{height:5px;border-radius:99px;background:#242934;overflow:hidden;margin-top:22px}
+.generationBar i{display:block;width:35%;height:100%;border-radius:99px;background:linear-gradient(90deg,transparent,#fff,transparent);animation:darkBar 1.25s ease-in-out infinite}
+@keyframes darkPulse{50%{transform:scale(1.07);filter:brightness(1.25)}}
+@keyframes darkBar{0%{transform:translateX(-150%)}100%{transform:translateX(430%)}}
+</style>
+</head>
+<body>
+<div id="generationModal" class="generationModal" aria-hidden="true">
+  <div class="generationBox" role="status" aria-live="polite">
+    <div class="generationOrb"></div>
+    <div class="generationSpinner"></div>
+    <div id="generationTitle" class="generationTitle">DARK AI IS CREATING</div>
+    <div id="generationStatus" class="generationStatus">Preparing your generation…</div>
+    <div class="generationBar"><i></i></div>
+  </div>
+</div>
+
+<div class="app">
+<aside class="side">
+<div class="brand">DARK<span>AI</span></div>
+<nav class="nav">
+<button class="active" data-page="home">✦ Create</button>
+<button data-page="image">◉ Image</button>
+<button data-page="video">▶ Video</button>
+<button data-page="story">▦ Storyboard</button>
+<button data-page="ideas">⚡ Ideas</button>
+<button data-page="plans">◆ Plans</button>
+</nav>
+<div class="sideinfo">DARK AI Creator Platform<br>Free daily credits + paid plans<br><br>AI rendering requires a connected model/backend.</div>
+</aside>
+
+<main class="main">
+<header class="top"><span style="color:#8f95a1;font-size:12px">DARK AI / Creator Platform</span><div class="status"><span class="pill"><i class="dot" style="display:inline-block"></i> SYSTEM READY</span><span class="pill" id="planBadge">FREE</span><button class="btn" id="accountBtn" onclick="openAccount()">Login</button></div></header>
+
+<section id="home" class="tabs active page">
+<div class="hero"><h1>Create anything.<br>One place.</h1><p>DARK AI is designed as a Flow-style creator workspace: idea → image → video → dialogue → storyboard → publish. Free users receive daily credits; paid plans can unlock more usage.</p></div>
+<div class="stats">
+<div class="stat"><b id="imgStat">2 / 2</b><small>Free images today</small></div>
+<div class="stat"><b id="vidStat">2 / 2</b><small>Free videos today</small></div>
+<div class="stat"><b>9:16</b><small>Shorts ready</small></div>
+<div class="stat"><b>∞</b><small>Prompt ideas</small></div>
+</div>
+<div class="grid">
+<div class="card"><h2>Start creating</h2><div class="sub">Tell DARK AI what you want. Choose a mode below.</div>
+<div class="row">
+<button class="btn primary" onclick="go('image')">◉ Generate Image</button>
+<button class="btn" onclick="go('video')">▶ Generate Video</button>
+</div>
+<div class="ad">ADVERTISEMENT — your ad network slot goes here</div>
+<h2>Free daily system</h2><div class="sub">Free usage is limited on the server. Paid users use account credits after successful payment verification.</div>
+<div class="credits"><span class="credit">Image <b id="imgCredit">2</b>/day</span><span class="credit">Video <b id="vidCredit">2</b>/day</span><span class="credit">Dialogue video supported</span></div>
+</div>
+<div class="card"><h2>Quick Idea</h2><textarea id="quickIdea" placeholder="Example: a talking cycle goes to school..."></textarea><div class="actions"><button class="btn primary" onclick="quickStory()">Build Story</button><button class="btn" onclick="copy('quickOut')">Copy</button></div><div id="quickOut" class="output" style="margin-top:12px">Your story will appear here.</div></div>
+</div>
+</section>
+
+<section id="image" class="tabs page">
+<div class="hero"><h1>Image Studio</h1><p>Write exactly what you want to see. Select format, style and camera.</p></div>
+<div class="grid">
+<div class="card">
+<div class="credits"><span class="credit">Today: <b id="imgUse">2</b> image credits left</span><span class="credit">Free limit: 2/day</span></div>
+<label>Image prompt</label><textarea id="imgPrompt" placeholder="A cinematic photo of a human-like bicycle walking into a school, funny expression, rainy morning..."></textarea>
+<div class="row3"><div><label>Aspect</label><select id="imgRatio"><option>9:16</option><option>16:9</option><option>1:1</option></select></div><div><label>Style</label><select id="imgStyle"><option>Photorealistic cinematic</option><option>3D animation</option><option>Anime</option><option>Fantasy</option><option>Dark cinematic</option></select></div><div><label>Quality</label><select id="imgQuality"><option>High detail</option><option>Ultra detail</option><option>Fast draft</option></select></div></div>
+<div class="actions"><button class="btn primary" onclick="generateImage()">Generate Image</button><button class="btn" onclick="enhanceImagePrompt()">Enhance Prompt</button></div>
+<div class="ad">ADVERTISEMENT — show an ad between free generations</div>
+<div id="imgPromptOut" class="output">The generated image prompt/result status appears here.</div>
+</div>
+<div class="card"><h2>Preview</h2><div id="imagePreview" class="preview">Actual AI image rendering needs a connected image model.<br><br>This UI is ready for that backend connection.</div></div>
+</div>
+</section>
+
+<section id="video" class="tabs page">
+<div class="hero"><h1>Video Studio</h1><p>Create video from text or animate an image with cinematic motion. Exact dialogue ownership can be included as production direction.</p></div>
+<div class="grid">
+<div class="card">
+<div class="credits"><span class="credit">Today: <b id="vidUse">2</b> video credits left</span><span class="credit">Free limit: 2/day</span></div>
+<div class="actions" style="margin-bottom:12px"><button id="textVideoTab" class="btn primary" onclick="setVideoMode('text')">Text → Video</button><button id="imageVideoTab" class="btn" onclick="setVideoMode('image')">Image → Video</button></div>
+<div id="textVideoPanel">
+<label>Scene / story</label><textarea id="vidPrompt" placeholder="Baby says: Uncle, aapke paas iPhone hai? Uncle says: Haan beta..."></textarea>
+</div>
+<div id="imageVideoPanel" style="display:none">
+<label>Source image</label>
+<input id="i2vFile" type="file" accept="image/png,image/jpeg,image/webp" style="width:100%;margin:6px 0 12px">
+<div id="i2vPreview" class="preview" style="aspect-ratio:16/9;min-height:180px">Choose an image to animate.</div>
+<label>Motion prompt</label>
+<textarea id="i2vPrompt" placeholder="The character smiles, gently moves their head and waves at the camera. Smooth cinematic motion, natural expression, consistent subject."></textarea>
+</div>
+<div class="row3"><div><label>Duration</label><select id="vidDur"><option>5 sec</option><option>8 sec</option><option>10 sec</option></select></div><div><label>Format</label><select id="vidRatio"><option>9:16</option><option>16:9</option><option>1:1</option></select></div><div><label>Camera</label><select id="vidCam"><option>Cinematic tracking</option><option>Slow push-in</option><option>Orbit</option><option>Handheld</option><option>Static close-up</option></select></div></div>
+<div class="row"><div><label>Voice direction</label><select id="vidVoice"><option>Natural Hindi</option><option>Natural Bengali</option><option>Natural English</option></select></div><div><label>Audio direction</label><select id="vidAudio"><option>Dialogue + SFX + ambience</option><option>Dialogue only</option><option>Music + ambience</option></select></div></div>
+<div class="actions"><button class="btn primary" onclick="generateVideo()">Generate Text Video</button><button class="btn primary" onclick="generateImageVideo()">Generate Image Video</button><button class="btn" onclick="copy('vidOut')">Copy Prompt</button></div>
+<div class="ad">ADVERTISEMENT — free users can see ads here</div>
+</div>
+<div class="card"><h2>Video Output</h2><div id="vidOut" class="output">Your production prompt will appear here.</div></div>
+</div>
+</section>
+
+<section id="story" class="tabs page">
+<div class="hero"><h1>Storyboard</h1><p>Turn one story into a sequence of connected cinematic shots.</p></div>
+<div class="card">
+<textarea id="storyInput" placeholder="Paste your story..."></textarea>
+<div class="row"><div><label>Shots</label><select id="shotN"><option>4</option><option>6</option><option>8</option><option>10</option></select></div><div><label>Continuity</label><select><option>Strict character + location consistency</option><option>Normal</option></select></div></div>
+<div class="actions"><button class="btn primary" onclick="makeShots()">Create Storyboard</button><button class="btn" onclick="copy('shots')">Copy</button></div>
+<div id="shots" class="ideas" style="margin-top:14px"></div>
+</div>
+</section>
+
+<section id="ideas" class="tabs page">
+<div class="hero"><h1>Idea Lab</h1><p>Generate combinations for animals, humans, objects, robots, vehicles, fantasy, horror, school, comedy and more.</p></div>
+<div class="card">
+<div class="row3"><div><label>Category</label><select id="ic"></select></div><div><label>Character</label><select id="ich"></select></div><div><label>Place</label><select id="ipl"></select></div></div>
+<div class="row3"><div><label>Mood</label><select id="imo"></select></div><div><label>Action</label><select id="iac"></select></div><div><label>Twist</label><select id="itw"></select></div></div>
+<div class="actions"><button class="btn primary" onclick="ideas()">Generate 20 Ideas</button><button class="btn" onclick="copy('ideaOut')">Copy</button></div>
+<div id="ideaOut" class="ideas" style="margin-top:14px"></div>
+</div>
+</section>
+
+<section id="plans" class="tabs page">
+<div class="hero"><h1>Plans & Credits</h1><p>Use this section as the business layer. Prices are placeholders until you connect your payment provider and backend.</p></div>
+<div class="plans">
+<div class="plan"><h3>FREE</h3><div class="price">₹0</div><ul><li>2 images / day</li><li>2 videos / day</li><li>Dialogue workflow</li><li>Ads shown</li><li>Browser history</li></ul><button class="btn">Current Plan</button></div>
+<div class="plan featured"><h3>PRO</h3><div class="price">₹199<span style="font-size:12px;color:#888">/month</span></div><ul><li>Higher image credits</li><li>Higher video credits</li><li>Priority generation</li><li>Reduced/no ads</li><li>Premium export</li></ul><button class="btn primary" onclick="showPay('PRO')">Choose PRO</button></div>
+<div class="plan"><h3>CREATOR</h3><div class="price">₹499<span style="font-size:12px;color:#888">/month</span></div><ul><li>Large credit allowance</li><li>Longer videos</li><li>Commercial workflow</li><li>Team-ready projects</li><li>Priority queue</li></ul><button class="btn primary" onclick="showPay('CREATOR')">Choose CREATOR</button></div>
+</div>
+<div class="ad" style="margin-top:20px">ADVERTISEMENT — replace with your approved ad-network unit</div>
+<div class="card" style="margin-top:15px"><h2>Account & Admin</h2><div class="sub">Users can create an account before buying a paid plan. You control plans, users and payment records from the separate DARK AI Admin Panel.</div><div class="actions"><button class="btn" onclick="openAccount()">Login / Create account</button><a class="btn" href="/admin.html">Open Admin Panel</a></div></div>
+<div class="card" style="margin-top:15px"><h2>Important for launch</h2><div class="sub">Do not put payment secrets or AI API keys inside this HTML. For real users, use a backend to authenticate users, enforce daily credits, call the AI model, store outputs, and verify payments.</div></div>
+</section>
+
+<footer class="page">DARK AI • Creator platform prototype • Free limits are enforced locally in this demo. Production AI generation, payments, accounts and ad serving require backend/provider integration.</footer>
+</main>
+</div>
+
+<div id="payModal" class="modal"><div class="modalbox"><h2 id="payTitle">Plan</h2><p id="payText" class="sub">Login first. Then DARK AI can create a secure Razorpay order from the server.</p><div class="actions"><button class="btn primary" id="payNowBtn" onclick="startPayment()">Pay securely</button><button class="btn" onclick="closePay()">Close</button></div></div></div>
+<div id="accountModal" class="modal"><div class="modalbox"><h2>DARK AI Account</h2><p class="sub">Create an account to buy paid plans. Your AI/API secrets never go into the browser.</p><input id="authEmail" class="field" type="email" placeholder="Email"><input id="authPassword" class="field" type="password" placeholder="Password (6+ characters)" style="margin-top:9px"><div class="actions"><button class="btn primary" onclick="registerAccount()">Create account</button><button class="btn" onclick="loginAccount()">Login</button><button class="btn" onclick="closeAccount()">Close</button></div><div id="authMsg" class="output" style="margin-top:12px;min-height:60px">Not logged in.</div></div></div>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+const lists={
+ic:["Animal","Funny","School","Family","Fantasy","Street","Robot","Vehicle","Horror","Friendship","Food","Superhero","Mystery","Adventure","Space","Time Travel","Village","City","Office"],
+ich:["Any","Baby","Kid","Student","Teacher","Uncle","Auntie","Grandpa","Dog","Cat","Monkey","Parrot","Robot","Alien","Superhero","Talking Car","Talking Cycle","Talking Phone","Human-like Object"],
+ipl:["Any","School","Street","Home","Market","Park","Bus","Train","Hospital","Village","City","Office","Wedding","Restaurant","Airport","Beach","Forest","Space Station"],
+imo:["Funny","Crazy","Unexpected","Emotional","Scary","Wholesome","Cinematic","Cute","Suspenseful"],
+iac:["complains","argues","runs away","gets jealous","tries to help","reveals a secret","challenges someone","switches roles","makes a mistake","becomes famous","starts a business","finds something","gets caught"],
+itw:["funny reveal","role reversal","secret identity","unexpected object","wrong person","reverse ending","emotional reveal","hidden talent","the plan backfires"]
+};
+for(const [id,arr] of Object.entries(lists))document.getElementById(id).innerHTML=arr.map(x=>`<option>${x}</option>`).join('');
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
+function go(id){document.querySelectorAll('.tabs').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));scrollTo(0,0)}
+function today(){return new Date().toISOString().slice(0,10)}
+let state=JSON.parse(localStorage.getItem('oneai_state')||'null');
+let authToken=localStorage.getItem('oneai_token')||'';
+let selectedPlan='PRO';
+if(!state||state.date!==today()){state={date:today(),images:2,videos:2,plan:'FREE'};localStorage.setItem('oneai_state',JSON.stringify(state))}
+function save(){localStorage.setItem('oneai_state',JSON.stringify(state));renderCredits()}
+async function refreshMe(){try{const r=await fetch('/api/me',{headers:authToken?{Authorization:'Bearer '+authToken}:{}});const j=await r.json();if(j.user){state.plan=j.user.plan;state.paidCredits=j.user.credits||{};save();document.getElementById('accountBtn').textContent=j.user.email+' · '+j.user.plan}else document.getElementById('accountBtn').textContent='Login'}catch{}}
+function renderCredits(){['imgStat','imgCredit','imgUse'].forEach(id=>{let e=document.getElementById(id);if(e)e.textContent=state.images+(id==='imgStat'?' / 2':'')});['vidStat','vidCredit','vidUse'].forEach(id=>{let e=document.getElementById(id);if(e)e.textContent=state.videos+(id==='vidStat'?' / 2':'')});document.getElementById('planBadge').textContent=state.plan}
+renderCredits(); refreshMe();
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',1300)}
+function copy(id){let e=document.getElementById(id),t=e.innerText||e.value;navigator.clipboard?.writeText(t).then(()=>toast('Copied')).catch(()=>toast('Select and copy'))}
+function quickStory(){let x=document.getElementById('quickIdea').value.trim();if(!x)return alert('Idea likho.');let s=`HOOK: ${x}\n\nSETUP: The main character has a clear goal, but an unexpected problem appears.\n\nDIALOGUE:\nCHARACTER: “Wait… what is happening?”\nOTHER: “The real surprise is still coming!”\n\nESCALATION: The problem gets bigger through visible action and reactions.\n\nPAYOFF: A final reveal directly connected to the original idea.\n\nFINAL BEAT: Strong reaction + memorable punchline.`;document.getElementById('quickOut').innerText=s;document.getElementById('storyInput').value=s;document.getElementById('vidPrompt').value=s}
+function enhanceImagePrompt(){let x=document.getElementById('imgPrompt').value.trim();if(!x)return alert('Prompt likho.');document.getElementById('imgPrompt').value=x+', cinematic composition, consistent character design, expressive face, realistic lighting, detailed environment, depth of field, professional framing, high detail, clean background, no watermark, no random text.';toast('Prompt enhanced')}
+function getRatioDims(ratio){
+  if(ratio==='9:16') return {width:576,height:1024};
+  if(ratio==='16:9') return {width:1024,height:576};
+  return {width:768,height:768};
+}
+let videoMode='text';
+function setVideoMode(mode){
+  videoMode=mode;
+  document.getElementById('textVideoPanel').style.display=mode==='text'?'block':'none';
+  document.getElementById('imageVideoPanel').style.display=mode==='image'?'block':'none';
+  document.getElementById('textVideoTab').className='btn'+(mode==='text'?' primary':'');
+  document.getElementById('imageVideoTab').className='btn'+(mode==='image'?' primary':'');
+}
+document.getElementById('i2vFile')?.addEventListener('change',e=>{
+  const f=e.target.files?.[0], p=document.getElementById('i2vPreview');
+  if(!f){p.innerText='Choose an image to animate.';return;}
+  const u=URL.createObjectURL(f);
+  p.innerHTML=`<img src="${u}" style="max-width:100%;max-height:320px;border-radius:12px;display:block;margin:auto">`;
+});
+
+function showGeneration(type='AI',status='Preparing your generation…'){
+  const m=document.getElementById('generationModal');
+  if(!m)return;
+  document.getElementById('generationTitle').textContent=`DARK AI IS CREATING ${String(type).toUpperCase()}`;
+  document.getElementById('generationStatus').textContent=status;
+  m.classList.add('show');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+}
+function updateGeneration(status){const e=document.getElementById('generationStatus');if(e)e.textContent=status}
+function hideGeneration(){const m=document.getElementById('generationModal');if(!m)return;m.classList.remove('show');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+async function generateImage(){
+if(state.images<=0){go('plans');return alert('Aaj ke 2 free image credits use ho gaye.');}
+let x=document.getElementById('imgPrompt').value.trim();if(!x)return alert('Image prompt likho.');
+const preview=document.getElementById('imagePreview'); preview.innerHTML='<div class="loadingPanel"><div class="loadingText"><div class="spinner"></div><b>CREATING YOUR IMAGE</b><small style="margin-top:7px;color:#9da3ae">AI is rendering a preview…</small></div></div>'; 
+try{
+ updateGeneration('Generating image with the AI model…');
+ const ratio=document.getElementById('imgRatio').value, dims=getRatioDims(ratio);
+ const r=await fetch('/api/image',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:x,style:document.getElementById('imgStyle').value,ratio,quality:document.getElementById('imgQuality').value,width:dims.width,height:dims.height})});
+ if(!r.ok){let j=await r.json().catch(()=>({})); throw new Error(j.error||'Image generation failed');}
+ const blob=await r.blob(); const url=URL.createObjectURL(blob); state.images--;save();
+ preview.innerHTML=`<img src="${url}" style="width:100%;height:auto;border-radius:14px;display:block"><div class="resultActions"><a class="btn primary" href="${url}" download="one-ai-image-${ratio.replace(':','x')}.png">Download Image</a></div>`;
+ document.getElementById('imgPromptOut').innerText='IMAGE GENERATED SUCCESSFULLY\n\nRequested ratio: '+ratio+'\nOutput is requested at '+dims.width+'×'+dims.height+' pixels.\n\nPrompt: '+x;
+ toast('Image generated');
+}catch(e){preview.innerHTML='<div><b>GENERATION ERROR</b><br><br>'+e.message+'</div>';toast('Generation failed');}
+}
+function videoFrames(duration){return duration==='5 sec'?121:duration==='8 sec'?193:241;}
+async function generateVideo(){
+if(state.videos<=0){go('plans');return alert('Aaj ke 2 free video credits use ho gaye.');}
+let x=document.getElementById('vidPrompt').value.trim();if(!x)return alert('Story/dialogue likho.');
+showGeneration('VIDEO','Preparing video frames…');
+const out=document.getElementById('vidOut'); out.innerHTML='<div class="loadingPanel videoLoad"><div class="loadingText"><div class="spinner"></div><b>CREATING YOUR VIDEO</b><small style="margin-top:7px;color:#9da3ae">Rendering frames… this can take a little time.</small></div></div>'; 
+try{
+ updateGeneration('Generating video frames… this can take a little time.');
+ const r=await fetch('/api/video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:x,duration:document.getElementById('vidDur').value,ratio:document.getElementById('vidRatio').value,camera:document.getElementById('vidCam').value,voice:document.getElementById('vidVoice').value,audio:document.getElementById('vidAudio').value,numFrames:videoFrames(document.getElementById('vidDur').value)})});
+ if(!r.ok){let j=await r.json().catch(()=>({})); throw new Error(j.error||'Video generation failed');}
+ const blob=await r.blob(); const url=URL.createObjectURL(blob); state.videos--;save();
+ out.innerHTML=`<b>VIDEO GENERATED</b><br><br><video controls playsinline style="width:100%;max-height:520px;border-radius:14px" src="${url}"></video><div class="resultActions"><a class="btn primary" href="${url}" download="one-ai-video.mp4">Download Video</a></div><br><small>LTX video generation creates visual motion. Spoken Hindi/Bengali/English dialogue and true lip-sync are separate audio/lip-sync stages.</small>`;
+ toast('Video generated');
+}catch(e){out.innerText='GENERATION ERROR\n\n'+e.message;toast('Generation failed');}
+}
+async function generateImageVideo(){
+if(state.videos<=0){go('plans');return alert('Aaj ke 2 free video credits use ho gaye.');}
+const file=document.getElementById('i2vFile').files?.[0];
+if(!file)return alert('Pehle source image choose karo.');
+showGeneration('IMAGE → VIDEO','Preparing source image…');
+let prompt=document.getElementById('i2vPrompt').value.trim() || 'Smooth natural cinematic motion, subtle camera movement, realistic facial expression, consistent subject and background.';
+const out=document.getElementById('vidOut'); out.innerHTML='<div class="loadingPanel videoLoad"><div class="loadingText"><div class="spinner"></div><b>ANIMATING YOUR IMAGE</b><small style="margin-top:7px;color:#9da3ae">Creating smooth motion frames…</small></div></div>'; 
+try{
+ updateGeneration('Animating your image with cinematic motion…');
+ const dataUrl=await new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.onerror=reject;fr.readAsDataURL(file)});
+ const r=await fetch('/api/image-to-video',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:dataUrl,prompt,duration:document.getElementById('vidDur').value,ratio:document.getElementById('vidRatio').value,camera:document.getElementById('vidCam').value,numFrames:videoFrames(document.getElementById('vidDur').value)})});
+ if(!r.ok){let j=await r.json().catch(()=>({})); throw new Error(j.error||'Image-to-video generation failed');}
+ const blob=await r.blob(); const url=URL.createObjectURL(blob); state.videos--;save();
+ out.innerHTML=`<b>IMAGE → VIDEO GENERATED</b><br><br><video controls playsinline style="width:100%;max-height:520px;border-radius:14px" src="${url}"></video><div class="resultActions"><a class="btn primary" href="${url}" download="one-ai-image-to-video.mp4">Download Video</a></div><br><small>Source image animated with LTX-Video. Visual motion is generated from the uploaded image and prompt.</small>`;
+ toast('Image video generated');
+}catch(e){out.innerText='GENERATION ERROR\n\n'+e.message;toast('Generation failed');}
+}
+function makeShots(){let x=document.getElementById('storyInput').value.trim();if(!x)return alert('Story paste karo.');let n=+document.getElementById('shotN').value,e=document.getElementById('shots');e.innerHTML='';for(let i=1;i<=n;i++){let d=document.createElement('div');d.className='idea';d.innerHTML=`<b>SHOT ${i}</b><span>${i===1?'Hook + establish the world.':i===n?'Final reveal + reaction.':`Scene beat ${i}: build the conflict and move the story forward.`}</span><span>Camera: ${i%2?'medium tracking':'close-up push-in'} • Maintain exact character, wardrobe, props and location continuity.</span>`;e.appendChild(d)}}
+function ideas(){let n=20,arr=[];for(let i=0;i<n;i++){let c=lists.ic[Math.floor(Math.random()*lists.ic.length)],ch=lists.ich[Math.floor(Math.random()*lists.ich.length)],p=lists.ipl[Math.floor(Math.random()*lists.ipl.length)],m=lists.imo[Math.floor(Math.random()*lists.imo.length)],a=lists.iac[Math.floor(Math.random()*lists.iac.length)],t=lists.itw[Math.floor(Math.random()*lists.itw.length)];let d=document.createElement('div');d.className='idea';d.innerHTML=`<b>${i+1}. ${m} ${c} story</b><span>${ch} in ${p} ${a}, then a ${t}. Add a strong hook, short dialogue and visual ending.</span>`;arr.push(d)}let e=document.getElementById('ideaOut');e.innerHTML='';arr.forEach(x=>e.appendChild(x))}
+function openAccount(){document.getElementById('accountModal').classList.add('show')}
+function closeAccount(){document.getElementById('accountModal').classList.remove('show')}
+async function registerAccount(){const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;try{const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const j=await r.json();if(!r.ok)throw new Error(j.error);authToken=j.token;localStorage.setItem('oneai_token',authToken);document.getElementById('authMsg').innerText='Account created. You are logged in.';refreshMe()}catch(e){document.getElementById('authMsg').innerText=e.message}}
+async function loginAccount(){const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;try{const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});const j=await r.json();if(!r.ok)throw new Error(j.error);authToken=j.token;localStorage.setItem('oneai_token',authToken);document.getElementById('authMsg').innerText='Login successful.';refreshMe()}catch(e){document.getElementById('authMsg').innerText=e.message}}
+function showPay(p){selectedPlan=p;document.getElementById('payTitle').textContent=p+' PLAN';document.getElementById('payText').innerText=authToken?'Ready to create a secure payment order.':'Login/create an account first, then buy this plan.';document.getElementById('payNowBtn').style.display=authToken?'inline-block':'none';document.getElementById('payModal').classList.add('show')}
+function closePay(){document.getElementById('payModal').classList.remove('show')}
+async function startPayment(){if(!authToken){closePay();openAccount();return}try{const r=await fetch('/api/payment/create-order',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+authToken},body:JSON.stringify({plan:selectedPlan})});const j=await r.json();if(!r.ok)throw new Error(j.error);if(!window.Razorpay){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://checkout.razorpay.com/v1/checkout.js';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}const options={key:j.keyId,amount:j.order.amount,currency:j.order.currency,name:'DARK AI',description:selectedPlan+' Plan',order_id:j.order.id,handler:async function(resp){const vr=await fetch('/api/payment/verify',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+authToken},body:JSON.stringify({...resp,plan:selectedPlan})});const v=await vr.json();if(!vr.ok)throw new Error(v.error);state.plan=v.user.plan;state.paidCredits=v.user.credits;save();refreshMe();closePay();toast('Payment verified — plan activated')} };new window.Razorpay(options).open()}catch(e){document.getElementById('payText').innerText=e.message}}
+</script>
+</body>
+</html>
